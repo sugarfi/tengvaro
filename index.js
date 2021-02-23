@@ -80,13 +80,13 @@ const renderText = (text, vowel = null, x = 0) => {
                 }
             }
             const add = ((text.length == 1) && vowel) ? drawImage(`${vowel}.png`, x, 0) + PADDING : 0;
-            const width = drawImage(`${punc[text[0]]}.png`, x + add);
+            const width = drawImage(`${punc[text[0]]}.png`, x + add, height - 20);
             renderText(text.slice(1), (text.length != 1) ? vowel : null, x + width + add + PADDING);
         } else if (whitespace.includes(text[0])) {
             renderText(text.slice(1), vowel, x + WHITESPACE_WIDTH);
         } else if (cons.includes(text[0])) {
             console.log(vowel ? vowel + text[0] : text[0]);
-            const width = drawImage(`${text[0]}o.png`, x, ROW2_Y);
+            const width = drawImage(`${text[0]}o.png`, x, ROW2_Y - (text[0] == 'v' ? 15 : 0));
             if (vowel) {
                 drawImage(`${vowel}.png`, x, 0, width);
             }
