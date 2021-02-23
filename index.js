@@ -10,6 +10,13 @@ const c = canvas.getContext('2d');
 const { width, height } = canvas;
 
 const cons = [ 'b', 'c', 'ĉ', 'd', 'f', 'g', 'ĝ', 'h', 'ĥ', 'j', 'k', 'l', 'm', 'n', 'p', 'r', 's', 'ŝ', 't', 'ŭ', 'v', 'z'];
+const xsubs = {
+    'c': 'ĉ',
+    'g': 'ĝ',
+    's': 'ŝ',
+    'h': 'ĥ',
+    'u': 'ŭ',
+};
 const vowels = [ 'a', 'e', 'i', 'o', 'u' ];
 const punc = {
     ',': 'comma',
@@ -49,6 +56,15 @@ const renderText = (text, vowel = null, x = 0) => {
             }
             const add = vowel ? drawImage(`${vowel}.png`, x, 0) + PADDING : 0;
             const width = drawImage(`${text.slice(0, 2)}.png`, x + add);
+            renderText(text.slice(2), null, x + add + width + PADDING);
+        } else if (text[1] == 'x' && Object.keys(xsubs).includes(text[0])) {
+            if (vowel) {
+                console.log(vowel);
+                drawImage('carry.png', x, ROW2_Y);
+            }
+            const add = vowel ? drawImage(`${vowel}.png`, x, 0) + PADDING : 0;
+            console.log(xsubs[text[0]]);
+            const width = drawImage(`${xsubs[text[0]]}o.png`, x + add);
             renderText(text.slice(2), null, x + add + width + PADDING);
         } else if (vowels.includes(text[0])) {
             if (vowel) {
