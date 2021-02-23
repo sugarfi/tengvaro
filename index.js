@@ -43,12 +43,13 @@ const renderText = (text, vowel = null, x = 0) => {
     } else {
         if (text[1] == 'j' || (text[0] == 'a' && text[1] == 'ŭ')) {
             console.log(text.slice(0, 2));
-            const width = drawImage(`${text.slice(0, 2)}.png`, x);
             if (vowel) {
                 console.log(vowel);
-                drawImage(`${vowel}.png`, x, 0, width);
+                drawImage('carry.png', x, ROW2_Y);
             }
-            renderText(text.slice(2), null, x + width + PADDING);
+            const add = vowel ? drawImage(`${vowel}.png`, x, 0) + PADDING : 0;
+            const width = drawImage(`${text.slice(0, 2)}.png`, x + add);
+            renderText(text.slice(2), null, x + add + width + PADDING);
         } else if (vowels.includes(text[0])) {
             if (vowel) {
                 console.log(vowel);
